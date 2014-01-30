@@ -3,7 +3,7 @@
 There are many great [bit.ly](https://bitly.com/) gems, it's just that I wanted something as fast and as simple as possible.
 It can only shorten URLs. :-)
 
-It uses [Quickly](https://github.com/typhoeus/typhoeus) which is an awesome HTTP library for fast
+It uses [Typhoeus](https://github.com/typhoeus/typhoeus) which is an awesome HTTP library for fast
 and parallel networking. It also uses [Oj](https://github.com/ohler55/oj) which is a fast JSON parser.
 
 ## Installation
