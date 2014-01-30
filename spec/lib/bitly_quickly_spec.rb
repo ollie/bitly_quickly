@@ -81,13 +81,13 @@ describe BitlyQuickly do
         'http://www.google.com/5',
       ]
 
-      response_urls = [
-        'http://pht.io/1eyUhF1',
-        'http://pht.io/1eyUhF2',
-        'http://pht.io/1eyUhF3',
-        'http://pht.io/1eyUhF4',
-        'http://pht.io/1eyUhF5',
-      ]
+      response_urls = {
+        'http://www.google.com/1' => 'http://pht.io/1eyUhF1',
+        'http://www.google.com/2' => 'http://pht.io/1eyUhF2',
+        'http://www.google.com/3' => 'http://pht.io/1eyUhF3',
+        'http://www.google.com/4' => 'http://pht.io/1eyUhF4',
+        'http://www.google.com/5' => 'http://pht.io/1eyUhF5',
+      }
 
       expect(@client.shorten(request_urls)).to eq(response_urls)
     end

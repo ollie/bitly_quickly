@@ -23,8 +23,8 @@ Or install it yourself as:
 ## Usage
 
     client         = BitlyQuickly.new(access_token: 'token')
-    shortened_url  = client.shorten('http://www.google.com/')
-    shortened_urls = client.shorten([
+    shortened_url  = client.shorten('http://www.google.com/') # returns String
+    shortened_urls = client.shorten([                         # returns Hash
       'https://www.google.com/',
       'https://www.youtube.com/',
       'https://www.yahoo.com/',

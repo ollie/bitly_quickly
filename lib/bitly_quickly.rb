@@ -33,14 +33,14 @@ class BitlyQuickly
 
   def get_many_responses(array_of_long_urls)
     hydra     = Typhoeus::Hydra.new
-    responses = []
+    responses = {}
 
     array_of_long_urls.each do |long_url|
       request = make_shorten_request long_url
 
       request.on_complete do |response|
         json_response = response_to_json response
-        responses << json_response[:data][:url]
+        responses[ response.request.long_url ] = json_response[:data][:url]
       end
 
       hydra.queue request
@@ -60,7 +60,7 @@ class BitlyQuickly
   end
 
   def make_shorten_request(long_url)
-    Typhoeus::Request.new(
+    request = Typhoeus::Request.new(
       api_url('/v3/shorten'),
       {
         params: {
@@ -72,6 +72,14 @@ class BitlyQuickly
         }
       }
     )
+
+    # I need to access this later in the result
+    class << request
+      attr_accessor :long_url
+    end
+
+    request.long_url = long_url
+    request
   end
 
   def get_response(long_url)
