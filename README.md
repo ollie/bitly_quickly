@@ -8,6 +8,13 @@ It can only shorten URLs. :-)
 It uses [Typhoeus](https://github.com/typhoeus/typhoeus) which is an awesome HTTP library for fast
 and parallel networking. It also uses [Oj](https://github.com/ohler55/oj) which is a fast JSON parser.
 
+## Tested on
+
+* 2.1.1
+* 2.1.0
+* 2.0.0
+* 1.9.3
+
 ## Installation
 
 Add this line to your application's Gemfile:
