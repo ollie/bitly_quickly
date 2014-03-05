@@ -39,19 +39,11 @@ describe BitlyQuickly do
     end
 
     it 'makes request' do
-      expect(@client.make_shorten_request('http://www.google.com/1')).to be_kind_of(Typhoeus::Request)
+      expect(@client.make_shorten_request('http://example.org/1')).to be_kind_of(Typhoeus::Request)
     end
   end
 
-  context 'Response with invalid token' do
-    before do
-      @client = BitlyQuickly.new access_token: 'token'
-    end
-
-    it 'raises an execption' do
-      expect { @client.shorten('http://www.google.com/1') }.to raise_error
-    end
-  end
+  # Success
 
   context 'Response with valid token' do
     before do
@@ -59,11 +51,11 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://www.google.com/1') }.to_not raise_error
+      expect { @client.shorten('http://example.org/200/1') }.to_not raise_error
     end
 
     it 'status code' do
-      expect(@client.shorten('http://www.google.com/1')).to eq('http://pht.io/1eyUhF1')
+      expect(@client.shorten('http://example.org/200/1')).to eq('http://pht.io/1eyUhF1')
     end
   end
 
@@ -74,22 +66,74 @@ describe BitlyQuickly do
 
     it 'makes many requests' do
       request_urls = [
-        'http://www.google.com/1',
-        'http://www.google.com/2',
-        'http://www.google.com/3',
-        'http://www.google.com/4',
-        'http://www.google.com/5',
+        'http://example.org/200/1',
+        'http://example.org/200/2',
+        'http://example.org/200/3',
+        'http://example.org/200/4',
+        'http://example.org/200/5',
       ]
 
       response_urls = {
-        'http://www.google.com/1' => 'http://pht.io/1eyUhF1',
-        'http://www.google.com/2' => 'http://pht.io/1eyUhF2',
-        'http://www.google.com/3' => 'http://pht.io/1eyUhF3',
-        'http://www.google.com/4' => 'http://pht.io/1eyUhF4',
-        'http://www.google.com/5' => 'http://pht.io/1eyUhF5',
+        'http://example.org/200/1' => 'http://pht.io/1eyUhF1',
+        'http://example.org/200/2' => 'http://pht.io/1eyUhF2',
+        'http://example.org/200/3' => 'http://pht.io/1eyUhF3',
+        'http://example.org/200/4' => 'http://pht.io/1eyUhF4',
+        'http://example.org/200/5' => 'http://pht.io/1eyUhF5',
       }
 
       expect(@client.shorten(request_urls)).to eq(response_urls)
+    end
+  end
+
+  # Errors
+
+  context 'Response 403' do
+    before do
+      @client = BitlyQuickly.new access_token: 'token'
+    end
+
+    it 'raises an execption' do
+      expect { @client.shorten('http://example.org/403') }.to raise_error
+    end
+  end
+
+  context 'Response 503' do
+    before do
+      @client = BitlyQuickly.new access_token: 'token'
+    end
+
+    it 'raises an execption' do
+      expect { @client.shorten('http://example.org/503') }.to raise_error
+    end
+  end
+
+  context 'Response 404' do
+    before do
+      @client = BitlyQuickly.new access_token: 'token'
+    end
+
+    it 'raises an execption' do
+      expect { @client.shorten('http://example.org/404') }.to raise_error
+    end
+  end
+
+  context 'Response 500' do
+    before do
+      @client = BitlyQuickly.new access_token: 'token'
+    end
+
+    it 'raises an execption' do
+      expect { @client.shorten('http://example.org/500') }.to raise_error
+    end
+  end
+
+  context 'Response 666' do
+    before do
+      @client = BitlyQuickly.new access_token: 'token'
+    end
+
+    it 'raises an execption' do
+      expect { @client.shorten('http://example.org/666') }.to raise_error
     end
   end
 end

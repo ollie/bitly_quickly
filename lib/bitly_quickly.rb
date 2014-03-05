@@ -5,7 +5,12 @@ require 'bitly_quickly/version'
 
 # V3 Wrapper
 class BitlyQuickly
-  class InvalidAccessToken < StandardError; end
+  class BitlyError                    < StandardError; end
+  class RateLimitExceededError        < BitlyError; end
+  class TemporarilyUnavailableError   < BitlyError; end
+  class NotFoundError                 < BitlyError; end
+  class InvalidRequestOrResponseError < BitlyError; end
+  class UnknownError                  < BitlyError; end
 
   DEFAULT_API_ADDRESS = 'https://api-ssl.bitly.com'
   OJ_OPTIONS          = {
@@ -67,9 +72,6 @@ class BitlyQuickly
           access_token: access_token,
           longUrl:      long_url
         },
-        headers: {
-          user_agent: 'Photolane.co'
-        }
       }
     )
 
@@ -91,9 +93,20 @@ class BitlyQuickly
   def response_to_json(response)
     json_response = parse_response response
 
-    raise InvalidAccessToken if json_response[:status_txt] == 'INVALID_ARG_ACCESS_TOKEN'
-
-    json_response
+    case json_response[:status_code]
+    when 200
+      return json_response
+    when 403
+      raise RateLimitExceededError, json_response[:status_txt]
+    when 404
+      raise NotFoundError, json_response[:status_txt]
+    when 500
+      raise InvalidRequestOrResponseError, json_response[:status_txt]
+    when 503
+      raise TemporarilyUnavailableError, json_response[:status_txt]
+    else
+      raise UnknownError, json_response[:status_txt]
+    end
   end
 
   def parse_response(response)
