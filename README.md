@@ -1,5 +1,7 @@
 # BitlyQuickly
 
+[![Build Status](https://travis-ci.org/ollie/bitly_quickly.png?branch=master)](https://travis-ci.org/ollie/bitly_quickly)
+
 There are many great [bit.ly](https://bitly.com/) gems, it's just that I wanted something as fast and as simple as possible.
 It can only shorten URLs. :-)
 
