@@ -93,7 +93,7 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://example.org/403') }.to raise_error
+      expect { @client.shorten('http://example.org/403') }.to raise_error(BitlyQuickly::RateLimitExceededError)
     end
   end
 
@@ -103,7 +103,7 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://example.org/503') }.to raise_error
+      expect { @client.shorten('http://example.org/503') }.to raise_error(BitlyQuickly::TemporarilyUnavailableError)
     end
   end
 
@@ -113,7 +113,7 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://example.org/404') }.to raise_error
+      expect { @client.shorten('http://example.org/404') }.to raise_error(BitlyQuickly::NotFoundError)
     end
   end
 
@@ -123,7 +123,7 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://example.org/500') }.to raise_error
+      expect { @client.shorten('http://example.org/500') }.to raise_error(BitlyQuickly::InvalidRequestOrResponseError)
     end
   end
 
@@ -133,7 +133,7 @@ describe BitlyQuickly do
     end
 
     it 'raises an execption' do
-      expect { @client.shorten('http://example.org/666') }.to raise_error
+      expect { @client.shorten('http://example.org/666') }.to raise_error(BitlyQuickly::UnknownError)
     end
   end
 end

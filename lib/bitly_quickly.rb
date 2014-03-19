@@ -6,10 +6,10 @@ require 'bitly_quickly/version'
 # V3 Wrapper
 class BitlyQuickly
   class BitlyError                    < StandardError; end
-  class RateLimitExceededError        < BitlyError; end
-  class TemporarilyUnavailableError   < BitlyError; end
-  class NotFoundError                 < BitlyError; end
-  class InvalidRequestOrResponseError < BitlyError; end
+  class RateLimitExceededError        < BitlyError; end # 403
+  class TemporarilyUnavailableError   < BitlyError; end # 503
+  class NotFoundError                 < BitlyError; end # 404
+  class InvalidRequestOrResponseError < BitlyError; end # 500
   class UnknownError                  < BitlyError; end
 
   DEFAULT_API_ADDRESS = 'https://api-ssl.bitly.com'
