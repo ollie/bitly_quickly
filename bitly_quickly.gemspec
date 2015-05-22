@@ -8,21 +8,37 @@ Gem::Specification.new do |spec|
   spec.version       = BitlyQuickly::VERSION
   spec.authors       = ['Oldrich Vetesnik']
   spec.email         = ['oldrich.vetesnik@gmail.com']
-  spec.summary       = %q{Shorten URLs with bit.ly API}
-  spec.description   = %q{Shorten URLs with bit.ly API, make parallel requests.}
+
+  spec.summary       = 'Shorten URLs with bit.ly API'
+  spec.description   = 'Shorten URLs with bit.ly API, make parallel requests.'
   spec.homepage      = 'https://github.com/ollie/bitly_quickly'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  # rubocop:disable Metrics/LineLength
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.bindir        = 'exe'
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler',   '~> 1.5'
-  spec.add_development_dependency 'rspec',     '~> 2.14'
-  spec.add_development_dependency 'webmock',   '~> 1.17'
-  spec.add_development_dependency 'simplecov', '~> 0.8'
+  # System
+  spec.add_development_dependency 'bundler', '~> 1.7'
 
-  spec.add_runtime_dependency 'typhoeus', '~> 0.6'
-  spec.add_runtime_dependency 'oj',       '~> 2.5'
+  # Test
+  spec.add_development_dependency 'rspec',     '~> 3.2'
+  spec.add_development_dependency 'webmock',   '~> 1.21'
+  spec.add_development_dependency 'simplecov', '~> 0.10'
+
+  # Code style, debugging, docs
+  spec.add_development_dependency 'rubocop', '~> 0.31'
+  spec.add_development_dependency 'pry',     '~> 0.10'
+  spec.add_development_dependency 'yard',    '~> 0.8'
+  spec.add_development_dependency 'rake',    '~> 10.4'
+
+  # Runtime
+
+  # Networking
+  # Fast networking
+  spec.add_runtime_dependency 'typhoeus',   '~> 0.7'
+  # A common interface to multiple JSON libraries
+  spec.add_runtime_dependency 'multi_json', '~> 1.11'
 end
