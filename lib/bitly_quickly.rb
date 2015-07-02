@@ -85,6 +85,8 @@ class BitlyQuickly
   # @param array_of_long_urls [String, Array<String>]
   #
   # @return [Hash<String, String>]
+  #
+  # rubocop:disable Metrics/MethodLength
   def get_many_responses(array_of_long_urls)
     hydra     = Typhoeus::Hydra.new
     responses = {}

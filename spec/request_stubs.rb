@@ -3,7 +3,7 @@
     .stub_request(
       :get,
       'https://api-ssl.bitly.com/v3/shorten?access_token=valid_token' \
-      "&longUrl=http://example.org/200/#{ n }"
+      "&longUrl=http://example.org/200/#{n}"
     )
     .to_return(
       status: 200,
@@ -11,8 +11,8 @@
         "status_code": 200,
         "status_txt":  "OK",
         "data": {
-          "long_url":    "http:\/\/example.org\/200\/#{ n }",
-          "url":         "http:\/\/pht.io\/1eyUhF#{ n }",
+          "long_url":    "http:\/\/example.org\/200\/#{n}",
+          "url":         "http:\/\/pht.io\/1eyUhF#{n}",
           "hash":        "1eyUhFo",
           "global_hash": "2V6CFi",
           "new_hash":    0

@@ -1,6 +1,6 @@
 RSpec.describe BitlyQuickly do
   it 'fails to make a client' do
-    expect { BitlyQuickly.new }.to raise_error
+    expect { BitlyQuickly.new }.to raise_error(ArgumentError)
   end
 
   context 'With access_token' do
